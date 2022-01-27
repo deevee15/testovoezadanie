@@ -1,10 +1,15 @@
 Создаем таблицу "ttable" в существующей БД:
+
+```
 CREATE TABLE `ttable` (
   `code` int(11) NOT NULL,
   `name` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+```
 Создаем страницу index.php с простой формой, где только кнопка "Загрузить", выполняющая загрузку данных из .csv таблицы в БД. Загрузка выполняется в файле "read.php". Со следующим кодом:
+
+```
 if($_POST['upload']){ - проверка, нажата ли кнопка
     $mysqli=new mysqli('localhost', 'root', 'password', 'table'); - подключение к БД
     $open=fopen('table.csv', 'r'); - открываем таблицу
@@ -22,6 +27,8 @@ if($_POST['upload']){ - проверка, нажата ли кнопка
     $mysqli->close();
     echo "<meta http-equiv='Refresh' content='0; URL=/index.php?result=uploaded'>"; - перенаправление на главную страницу с GET-запросом, указывающим на успешную загрузку данных
 }
+
+```
 В index.php делаем проверку GET-запроса "result" и, в случае, если он равен "uploaded", то выполняем загрузку файла-отчёта путём открытия файла download.php со следующим кодом:
 
     header("Content-Type: text/csv; charset=utf-8");
